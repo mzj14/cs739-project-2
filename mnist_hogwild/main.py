@@ -48,9 +48,7 @@ class Net(nn.Module):
         return F.log_softmax(x, dim=1)
 
 if __name__ == '__main__':
-    #start_time = time.time();
-    import datetime
-    start_time = datetime.datetime.now()
+    start_time = time.time();
     args = parser.parse_args()
 
     use_cuda = args.cuda and torch.cuda.is_available()
@@ -72,9 +70,9 @@ if __name__ == '__main__':
     for p in processes:
         p.join()
 
-    elapsed_time = (datetime.datetime.now() - start_time).microseconds;
+    elapsed_time = (time.time() - start_time) * 1000;
 
     # Once training is complete, we can test the model
     test(args, model, device, dataloader_kwargs)
 
-    print("Total training completion time is {}".format(elapsed_time))
+    print("Total training completion time is {} ms".format(int(round(elapsed_time))))
